@@ -41,6 +41,26 @@ Token Tokenizer::token() {
     tok.span.offset = src_offset - tok.span.start;
     tok.kind = Token::Number;
   } else {
+    bool op = false;
+    while (!op) {
+      switch (peek()) {
+      case '+':
+      case '-':
+      case '*':
+      case '/':
+        next();
+        tok.span.offset++;
+        break;
+      default:
+        op = true;
+        break;
+      }
+    }
+
+    if (tok.span.offset) {
+      tok.kind = Token::Operator;
+      return tok;
+    }
 
 
     while (!eof() && !isspace(peek())) {

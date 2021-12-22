@@ -2,11 +2,12 @@
 #include "./lang/tokenizer.h"
 
 int main() {
-  std::string src = "12345$$$";
+  std::string src = "1 ++ 23";
   Tokenizer t(src);
  
-  t.token();
-  t.token();
+  std::cout << t.token().span.offset << std::endl;
+  std::cout << t.token().span.offset << std::endl;
+  std::cout << t.token().span.offset << std::endl;
   if (t.trace.errored()) {
     t.trace.report(src);
   }
