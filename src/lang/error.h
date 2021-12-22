@@ -1,4 +1,4 @@
-#include "./common.h"
+#include "../common.h"
 #include "./token.h"
 #include <array>
 #include <string>
@@ -11,7 +11,7 @@ struct Error {
   Span span;
   
   Error() : msg(""), span() {}
-  Error(std::string msg, Span span) : msg(msg), span(span) {}
+  Error(const std::string& msg, Span span) : msg(msg), span(span) {}
 };
 
 class Stacktrace {
@@ -23,5 +23,6 @@ public:
   Stacktrace() : trace(), error_current(0), error_count(0) {}
   
   bool errored();
-  void error(std::string msg, Span span);
+  void error(const std::string& msg, Span span);
+  void report(std::string src);
 };

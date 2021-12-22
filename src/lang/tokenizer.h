@@ -1,5 +1,5 @@
 #pragma once
-#include "./common.h"
+#include "../common.h"
 #include "./token.h"
 #include "./error.h"
 #include <string>
@@ -8,12 +8,12 @@
 typedef std::vector<Token> TokenStream;
 
 class Tokenizer {
-  Stacktrace trace;
   std::string src;
   uint32_t src_offset;
   
 public:
-  Tokenizer(std::string src) : src(src) {}
+  Stacktrace trace;
+  Tokenizer(const std::string& src) : src(src), src_offset(0), trace() {}
   
   bool eof();
   char next();

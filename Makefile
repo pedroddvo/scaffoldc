@@ -1,9 +1,9 @@
 CC=g++
-SRCS=$(wildcard src/*.cpp)
-LIBS=$(wildcard src/*.h)
+SRCS=$(wildcard src/*.cpp) $(wildcard src/lang/*.cpp)
+LIBS=$(wildcard src/*.h)   $(wildcard src/lang/*.h)
 OBJS=$(SRCS:.cpp=.o)
 
-%.o: %.c $(LIBS)
+%.o: %.cpp $(LIBS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 
 scaffold: $(OBJS)

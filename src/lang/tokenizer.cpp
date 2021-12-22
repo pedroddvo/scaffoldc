@@ -24,7 +24,7 @@ Token Tokenizer::token() {
   skipws();
   char c = peek();
   
-  Token tok;
+  Token tok = Token();
   tok.span.start = src_offset;
 
   if (isdigit(c)) {
@@ -34,11 +34,21 @@ Token Tokenizer::token() {
       if (!isdigit(peek())) {
         tok.span.offset = src_offset;
         trace.error("Expected a digit 0 - 9", tok.span);
-        goto error;       
+        goto error;   
       }
       while (isdigit(peek())) next();
     }
+    tok.span.offset = src_offset - tok.span.start;
     tok.kind = Token::Number;
+  } else {
+
+
+    while (!eof() && !isspace(peek())) {
+      next();
+    }
+    tok.span.offset = src_offset - tok.span.start;
+    trace.error("Bad character(s)!", tok.span);
+    goto error;
   }
   
 

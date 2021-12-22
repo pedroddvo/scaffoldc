@@ -1,10 +1,16 @@
 #include <iostream>
-#include "./tokenizer.h"
+#include "./lang/tokenizer.h"
 
 int main() {
-  Tokenizer t("123.");
-
-  std::cout << t.token().span.offset;
+  std::string src = "12345$$$";
+  Tokenizer t(src);
+ 
+  t.token();
+  t.token();
+  if (t.trace.errored()) {
+    t.trace.report(src);
+  }
+  
   
   return 0;
 }
